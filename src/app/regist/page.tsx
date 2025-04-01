@@ -1,9 +1,7 @@
 'use client';
 
-import Button from '@/components/button/Button';
 import axios from 'axios';
 import classNames from 'classnames';
-import dayjs from 'dayjs';
 import { useRef, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation';
@@ -24,10 +22,13 @@ const Index = () => {
   } = useForm<formType>({ mode: "onChange" });
 
   // 카카오 로그인
-  const click = () => {
+  const clickKako = () => {
     router.push(`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=8fd7a1f394d9bbd09fdfdd3827146d73&redirect_uri=
 http://localhost:3000/oauth/kakao`);
   }
+
+  // 구글 로그인
+  const clickGoogle = () => { }
 
   const onChangeRadio = (e: any) => {
     if (e.target.value === 'isRegistrationTrue') {
@@ -41,7 +42,8 @@ http://localhost:3000/oauth/kakao`);
     <div className=''>
       <div className=''>
         <nav className=''>
-          <button onClick={click}>카카오 회원가입</button>
+          <button onClick={clickKako}>카카오 회원가입</button>
+          <button onClick={clickGoogle}>구글 회원가입</button>
         </nav>
       </div>
     </div>

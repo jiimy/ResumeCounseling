@@ -1,12 +1,19 @@
+import Header from "@/components/header/Header";
+import Review from "@/components/reviiew/Review";
 import Image from "next/image";
+import Link from "next/link";
+import s from './main.module.scss';
+import SlickSlider from "@/components/slider/SlickSlider";
 
 export default function Home() {
   return (
-    <div>
-      qrcode와 오픈톡 남기기
-
-      <br />
-      
-    </div>
+    <>
+      <div className={s.main_page}>
+        <Image src={'/img/qrcode.png'} alt="" width={200} height={200} />
+        <a href="https://open.kakao.com/o/smuldEoh" target="_blank">오픈카톡</a>
+        <a href="https://discord.gg/vAGCtURE" target="_blank">디스코드</a>
+      </div>
+      <Review type="slide"/>
+    </>
   );
 }

@@ -23,7 +23,7 @@ const Index = () => {
         // 이미 있는 계정이라면 서버에서 액세스 토큰 받고 홈으로 이동한다.
         if (response.data.isMember == true) {
           try {
-            setCookie("ticket-atk", response.data.accessToken);
+            setCookie("resume-atk", response.data.accessToken);
             router.push('/')
             // toast.success('로그인되었습니다!')
           } catch (e: any) {

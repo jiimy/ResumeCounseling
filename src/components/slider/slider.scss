@@ -1,0 +1,50 @@
+.slide {
+  &.is_slide {
+    position: relative;
+    // height: 570px;
+    max-width: 100%;
+    overflow: hidden;
+    // .title {
+    //   font-family: "gowun";
+    //   font-weight: 700;
+    //   font-size: 60px;
+    // }
+    // .content {
+    //   position: relative;
+    // }
+    // .slide-wrap {
+    //   height: 100%;
+    //   top: 0px;
+    //   width: 1462px;
+    //   width: 1135px;
+    //   right: -237px;
+    //   position: absolute;
+    // }
+    // .slick-slider {
+    //   position: relative;
+    //   height: 100%;
+    //   overflow: hidden;
+    // }
+    // .slick-list {
+    //   padding: 0 329px;
+    // }
+    // .slick-slide {
+    //   width: 308px!important;
+    //   padding: 0 30px;
+    //   box-sizing: content-box;
+    // }
+    // .slide {
+    //   strong {
+    //     display: block;
+    //     width: 100%;
+    //     text-align: center;
+    //     font-size: 24px;
+    //   }
+    //   p {
+    //     text-align: center;
+    //     margin-top: 8px;
+    //     font-size: 18px;
+    //   }
+    // }
+  }
+}

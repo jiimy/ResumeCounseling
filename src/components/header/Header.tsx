@@ -1,9 +1,15 @@
+import Link from 'next/link';
 import React from 'react';
+import s from './header.module.scss';
 
 const Header = () => {
   return (
-    <div>
-      로그인/로그인 표기만 해주기
+    <div className={s.header}>
+      <ul>
+        <li><Link href="/post">후기 작성</Link></li>
+      </ul>
+      {/* 로그인/로그아웃 */}
+      <Link href="/login">로그인</Link>
     </div>
   );
 };

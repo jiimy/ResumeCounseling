@@ -1,0 +1,20 @@
+.login_page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 20px;
+  gap: 48px;
+  overflow: hidden;
+}
+.login_btn {
+  background: black;
+  color: white;
+}
+
+.logo {
+  position: relative;
+  width: 100px;
+  height: 32px;
+}
