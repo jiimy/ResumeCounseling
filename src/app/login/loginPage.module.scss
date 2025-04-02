@@ -9,8 +9,13 @@
   overflow: hidden;
 }
 .login_btn {
-  background: black;
-  color: white;
+  display: inline-flex;
+  padding: 0 20px;
+  color: black;
+  height: 40px;
+  background: #fae100;
+  align-items: center;
+  border-radius: 8px;
 }
 
 .logo {

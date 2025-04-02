@@ -34,9 +34,6 @@ const Index = () => {
   return (
     <>
       <div className={s.login_page}>
-        <div className={s.logo}>
-          <Image src="/image/logo.svg" alt="logo" width={100} height={32} />
-        </div>
         <button
           onClick={signInWithKakao}
           className={`${s.login_btn} h-38`}

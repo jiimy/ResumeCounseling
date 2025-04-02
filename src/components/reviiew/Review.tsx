@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -7,12 +7,28 @@ import Image from "next/image";
 // import s from "./slider.module.scss";
 import './slider.scss';
 import classNames from "classnames";
+import { createClient } from "@/util/supabase/client";
+import { UserStore } from "@/store/user";
 
 type Props = {
   type?: 'kv' | 'slide'
 }
 
 const Review = ({ type = 'kv' }: Props) => {
+  const supabase = createClient();
+  const setUser = UserStore((state) => state.setName);
+
+  useEffect(() => {
+    const user = async () => {
+      const session = await supabase.auth.getSession();
+      console.log('session', session);
+      console.log('리뷰에서 가져온 유저정보:', session.data.session?.user?.user_metadata?.full_name);
+      setUser(session.data.session?.user?.user_metadata?.full_name);
+    }
+    user();
+  }, [])
+
+
   const slideSettings = {
     dots: true,
     infinite: true,

@@ -64,30 +64,11 @@ export async function middleware(request: NextRequest) {
     // console.log("user", user);
     // protected routes
     if (
-      request.nextUrl.pathname.startsWith("/mypage") &&
+      request.nextUrl.pathname.startsWith("/post") &&
       user?.data?.user === null
     ) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
-    if (
-      request.nextUrl.pathname.startsWith("/bookmark") &&
-      user?.data?.user === null
-    ) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-    if (
-      request.nextUrl.pathname.startsWith("/upload") &&
-      user?.data?.user === null
-    ) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-    if (
-      request.nextUrl.pathname.startsWith("/support") &&
-      user?.data?.user === null
-    ) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-
     return response;
   } catch (e) {
     // If you are here, a Supabase client could not be created!
