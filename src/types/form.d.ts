@@ -1,8 +1,7 @@
 interface formType {
-  username?: string;
-  password?: number;
-  phone?: number;
-  chkVertifysms?: number;
+  year?: string;
+  branch?: string;
+  content?: string;
 };
 
 interface EventFormType {

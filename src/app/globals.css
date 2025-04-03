@@ -37,3 +37,9 @@ textarea {
   max-width: 100%;
   overflow: hidden;
 }
+
+input, textarea {
+  border: 1px solid #ccc;
+  padding: 8px;
+  font-size: 14px;
+}
