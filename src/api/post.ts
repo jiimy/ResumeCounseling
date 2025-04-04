@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export async function postApi(year: string, branch: string, text: string) {
+export async function postApi(year: string, branch: string, content: string) {
   const res = await axios.post(`/api/post`, {
     year: year,
     branch: branch,
-    content: text,
+    content: content,
   });
 
   if (res.status === 200) {

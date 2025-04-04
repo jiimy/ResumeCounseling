@@ -38,7 +38,20 @@ textarea {
   overflow: hidden;
 }
 
+.input-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.input-wrap .error-message {
+  position: relative;
+  left: 4px;
+  bottom: -3px;
+  font-size: 14px;
+}
+
 input, textarea {
+  width: 100%;
   border: 1px solid #ccc;
   padding: 8px;
   font-size: 14px;
