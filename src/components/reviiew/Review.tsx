@@ -21,7 +21,7 @@ const Review = ({ type = 'kv' }: Props) => {
   const supabase = createClient();
   const setUser = UserStore((state) => state.setName);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isSuccess } = useQuery({
     queryFn: () => reviewAlltApi(0, 10),
     queryKey: ['reviewList'],
     staleTime: 1000 * 60 * 5,
@@ -56,7 +56,7 @@ const Review = ({ type = 'kv' }: Props) => {
     <div className={classNames("slide", {
     })}>
       <span>자세히 보기</span>
-      {data.length > 4 ?
+      {isSuccess && data.length > 4 ?
         <div className="slide-wrap">
           <Slider {...slideSettings}>
             <div>
@@ -80,7 +80,7 @@ const Review = ({ type = 'kv' }: Props) => {
           </Slider>
         </div> :
         <div>
-          {data && data.map((item: any, idx: number) => (
+          {isSuccess && data.map((item: any, idx: number) => (
             <div key={idx} className="">
               <p>{item.content}</p>
             </div>
