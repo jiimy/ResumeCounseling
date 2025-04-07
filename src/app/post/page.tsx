@@ -2,30 +2,46 @@
 import React from 'react';
 import s from './post.module.scss';
 import { useForm } from "react-hook-form";
-import { postApi } from '@/api/post';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { reviewPostApi } from '@/api/review';
+
+type FormType = {
+  year: string;
+  branch: string;
+  content: string;
+};
 
 const PostPage = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const inquiryMutation = useMutation({
+    mutationFn: (data: FormType) => reviewPostApi(data.year, data.branch, data.content),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['getReviewList'] });
+      router.back();
+    },
+  });
+
   const {
     register,
     handleSubmit,
-    reset,
-    watch,
-    control,
-    setError,
-    formState: { isSubmitting, isDirty, errors },
-  } = useForm<formType>({ mode: "onChange" });
+    formState: { errors },
+  } = useForm<FormType>({ mode: "onChange" });
 
-  const onSubmit = (data: any) => {
-    console.log('data', data);
-    postApi(data.year, data.branch, data.content);
-  }
+  const onSubmit = (data: FormType) => {
+    inquiryMutation.mutate(data);
+  };
 
   return (
     <div className={s.post_page}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex gap-10'>
           <div className='input-wrap'>
-            <input type="text" id="year" placeholder='* 연차 입력(ex: 10년)'
+            <input
+              type="text"
+              placeholder='* 연차 입력(ex: 10년)'
               {...register("year", {
                 required: "연차는 필수 입력입니다.",
                 minLength: {
@@ -39,7 +55,9 @@ const PostPage = () => {
             )}
           </div>
           <div className='input-wrap'>
-            <input type="text" id="" placeholder='* 분야(ex: 프론트, 백)'
+            <input
+              type="text"
+              placeholder='* 분야(ex: 프론트, 백)'
               {...register("branch", {
                 required: "분야는 필수 입력입니다.",
                 minLength: {
@@ -54,7 +72,8 @@ const PostPage = () => {
           </div>
         </div>
         <div className='input-wrap mt-30'>
-          <textarea id="" placeholder='후기 입력'
+          <textarea
+            placeholder='후기 입력'
             {...register("content", {
               required: "내용은 필수 입력입니다.",
               minLength: {
@@ -68,7 +87,7 @@ const PostPage = () => {
           )}
         </div>
         <div className='flex justify-end mt-20'>
-          <button onClick={onSubmit}>작성완료</button>
+          <button type="submit">작성완료</button>
         </div>
       </form>
     </div>

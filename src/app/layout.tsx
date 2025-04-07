@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/header/Header";
+import QueryProviders from "@/provider/queryProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,16 +16,18 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <div className="main">
-          <div className="view">
-            <div>
-              <Header />
-              <div className="content">
-                {children}
+        <QueryProviders>
+          <div className="main">
+            <div className="view">
+              <div>
+                <Header />
+                <div className="content">
+                  {children}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </QueryProviders>
       </body>
     </html>
   );
