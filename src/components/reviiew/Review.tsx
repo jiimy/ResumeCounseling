@@ -12,6 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { UserStore } from "@/store/user";
 import { reviewAlltApi } from "@/api/review";
+import Link from "next/link";
 
 type Props = {
   type?: 'kv' | 'slide'
@@ -55,7 +56,9 @@ const Review = ({ type = 'kv' }: Props) => {
   return (
     <div className={classNames("slide", {
     })}>
-      <span>자세히 보기</span>
+      <span>
+        <Link href="/review">자세히 보기</Link>
+      </span>
       {isSuccess && data.length > 4 ?
         <div className="slide-wrap">
           <Slider {...slideSettings}>
