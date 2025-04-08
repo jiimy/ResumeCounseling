@@ -59,6 +59,7 @@ export async function middleware(request: NextRequest) {
     // This will refresh session if expired - required for Server Components
     // https://supabase.com/docs/guides/auth/server-side/nextjs
     const user = await supabase.auth.getUser();
+    console.log('미들웨어 user', user);
 
     // console.log("request", request.nextUrl.pathname);
     // console.log("user", user);
@@ -84,10 +85,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/api/:path*",
-    "/mypage/:path*",
-    "/bookmark/:path*",
-    "/upload/:path*",
-    "/support/:path*",
+    "/post/:path*",
   ],
 };

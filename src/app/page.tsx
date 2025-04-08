@@ -10,10 +10,12 @@ export default function Home() {
     <>
       <div className={s.main_page}>
         <Image src={'/img/qrcode.png'} alt="" width={200} height={200} />
-        <a href="https://open.kakao.com/o/smuldEoh" target="_blank">오픈카톡</a>
-        <a href="https://discord.gg/vAGCtURE" target="_blank">디스코드</a>
+        <div className="flex gap-10 justify-around mt-20">
+          <a href="https://open.kakao.com/o/smuldEoh" target="_blank">오픈카톡</a>
+          <a href="https://discord.gg/vAGCtURE" target="_blank">디스코드</a>
+        </div>
       </div>
-      <Review type="slide"/>
+      <Review type="slide" />
     </>
   );
 }

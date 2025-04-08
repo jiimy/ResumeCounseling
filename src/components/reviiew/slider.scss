@@ -1,0 +1,9 @@
+.is-not-slide {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  > span {
+    text-align: right;
+  }
+}

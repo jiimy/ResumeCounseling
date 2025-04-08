@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import { UserStore } from "@/store/user";
 import { reviewAlltApi } from "@/api/review";
 import Link from "next/link";
+import ReviewItem from "./ReviewItem";
 
 type Props = {
   type?: 'kv' | 'slide'
@@ -55,6 +56,7 @@ const Review = ({ type = 'kv' }: Props) => {
 
   return (
     <div className={classNames("slide", {
+      "is-not-slide": isSuccess && data.length <= 3
     })}>
       <span>
         <Link href="/review">자세히 보기</Link>
@@ -62,31 +64,29 @@ const Review = ({ type = 'kv' }: Props) => {
       {isSuccess && data.length > 4 ?
         <div className="slide-wrap">
           <Slider {...slideSettings}>
-            <div>
+            <div className="item">
               <h3>1</h3>
             </div>
-            <div>
+            <div className="item">
               <h3>2</h3>
             </div>
-            <div>
+            <div className="item">
               <h3>3</h3>
             </div>
-            <div>
+            <div className="item">
               <h3>4</h3>
             </div>
-            <div>
+            <div className="item">
               <h3>5</h3>
             </div>
-            <div>
+            <div className="item">
               <h3>6</h3>
             </div>
           </Slider>
         </div> :
         <div>
           {isSuccess && data.map((item: any, idx: number) => (
-            <div key={idx} className="">
-              <p>{item.content}</p>
-            </div>
+            <ReviewItem key={idx} data={item} />
           ))}
         </div>
       }
