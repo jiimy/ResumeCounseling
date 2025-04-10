@@ -64,29 +64,14 @@ const Review = ({ type = 'kv' }: Props) => {
       {isSuccess && data.length > 4 ?
         <div className="slide-wrap">
           <Slider {...slideSettings}>
-            <div className="item">
-              <h3>1</h3>
-            </div>
-            <div className="item">
-              <h3>2</h3>
-            </div>
-            <div className="item">
-              <h3>3</h3>
-            </div>
-            <div className="item">
-              <h3>4</h3>
-            </div>
-            <div className="item">
-              <h3>5</h3>
-            </div>
-            <div className="item">
-              <h3>6</h3>
-            </div>
+            {isSuccess && data.map((item: any, idx: number) => (
+              <ReviewItem key={idx} data={item} type="slide"/>
+            ))}
           </Slider>
         </div> :
         <div>
           {isSuccess && data.map((item: any, idx: number) => (
-            <ReviewItem key={idx} data={item} />
+            <ReviewItem key={idx} data={item} type="slide"/>
           ))}
         </div>
       }

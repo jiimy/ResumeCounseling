@@ -1,7 +1,11 @@
 import axios from "axios";
 
 // 리뷰 등록
-export async function reviewPostApi(year: string, branch: string, content: string) {
+export async function reviewPostApi(
+  year: string,
+  branch: string,
+  content: string
+) {
   const res = await axios.post(`/api/post`, {
     year: year,
     branch: branch,
