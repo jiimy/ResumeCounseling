@@ -15,6 +15,7 @@ type reviewType = {
 }
 
 const ReviewItem = ({ type, data }: reviewType) => {
+  console.log('item', data);
   return (
     <>
       {type === 'slide' &&
