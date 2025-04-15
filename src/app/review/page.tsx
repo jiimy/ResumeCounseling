@@ -5,6 +5,7 @@ import ReviewItem from '@/components/reviiew/ReviewItem';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
+import s from './reviewpage.module.scss';
 
 const ReviewPage = () => {
   const [ref, isView] = useInView();
@@ -55,9 +56,7 @@ const ReviewPage = () => {
   console.log('data', data);
 
   return (
-    <div>
-      전체 리뷰 상세보기
-
+    <div className="page">
       {/* <ReviewItem key={idx} data={item} type="slide" /> */}
       {FeedListStatus === "success" && (
         <div className="list-container">

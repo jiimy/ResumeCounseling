@@ -13,6 +13,14 @@ const Header = () => {
 
 
   useEffect(() => {
+    const user = async () => {
+      const session = await supabase.auth.getSession();
+      console.log('session', session);
+      console.log('리뷰에서 가져온 유저정보:', session.data.session?.user?.user_metadata?.full_name);
+      setUsername(session.data.session?.user?.user_metadata?.full_name);
+    }
+    user();
+
     setUsername(userStore.name);
   }, [userStore.name]);
 

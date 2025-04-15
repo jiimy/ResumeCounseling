@@ -8,6 +8,9 @@
   padding: 14px 20px;
   border-radius: 10px;
   background: #ffe8c5;
+  &.page {
+    height: auto;
+  }
  p {
    @include multi-dotdotdot(16px, 6);
  }

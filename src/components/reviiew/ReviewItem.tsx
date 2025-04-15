@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './review.module.scss';
+import classNames from 'classnames';
 
 type data = {
   content: string;
@@ -24,10 +25,15 @@ const ReviewItem = ({ type, data }: reviewType) => {
         </div>
       }
       {type === 'reviewPage' &&
-        <div className={s.review_item}>
-          <h3>{data?.name}</h3>
-          <span>{data?.year}</span>
-          <p>{data?.content}</p>
+        <div className={classNames([s.review_item], {
+          [s.page]: type === 'reviewPage',
+        })}>
+          <div className='flex justify-between'>
+            <h3>{data?.name}</h3>
+            <span>{data?.year}년차</span>
+          </div>
+          <div className='mt-8'>{data?.branch}</div>
+          <p className='mt-20'>{data?.content}</p>
         </div>
       }
     </>
