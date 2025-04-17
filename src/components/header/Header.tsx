@@ -2,10 +2,12 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import s from './header.module.scss';
+import { useRouter } from 'next/navigation'
 import { UserStore } from '@/store/user';
 import { createClient } from '@/util/supabase/client';
 
 const Header = () => {
+  const router = useRouter()
   const supabase = createClient();
   const userStore = UserStore();
   // console.log('헤더의 스토어 : ', userStore)
@@ -30,6 +32,7 @@ const Header = () => {
     const { error } = await supabase.auth.signOut();
     if (!error) {
       alert('로그아웃 되었습니다');
+      router.push('/')
       setUsername('');
     } else {
       alert('로그아웃 실패');
@@ -41,10 +44,10 @@ const Header = () => {
       <ul>
         <li><Link href="/post">후기 작성</Link></li>
       </ul>
-      {username === '' ? (
-        <Link href="/login">로그인</Link>
-      ) : (
+      {username !== '' && username !== undefined ? (
         <button onClick={logout}>로그아웃</button>
+      ) : (
+        <Link href="/login">로그인</Link>
       )}
     </div>
   );
