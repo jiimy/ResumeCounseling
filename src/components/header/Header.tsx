@@ -7,33 +7,26 @@ import { UserStore } from '@/store/user';
 import { createClient } from '@/util/supabase/client';
 
 const Header = () => {
-  const router = useRouter()
+  const router = useRouter();
   const supabase = createClient();
   const userStore = UserStore();
-  // console.log('헤더의 스토어 : ', userStore)
-  const [username, setUsername] = useState(userStore.name);
-
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
-    const user = async () => {
-      const session = await supabase.auth.getSession();
-      // console.log('session', session);
-      // console.log('리뷰에서 가져온 유저정보:', session.data.session?.user?.user_metadata?.full_name);
-      setUsername(session.data.session?.user?.user_metadata?.full_name);
-    }
-    user();
-
-    setUsername(userStore.name);
-  }, [userStore.name, username, supabase.auth]);
-
-  console.log('로그인? : ', username);
+    const fetchUser = async () => {
+      const { data } = await supabase.auth.getSession();
+      const fullName = data.session?.user?.user_metadata?.full_name;
+      setUsername(fullName ?? '');
+    };
+    fetchUser();
+  }, []); // 의존성 없음 → 처음 한 번만 실행
 
   const logout = async () => {
     const { error } = await supabase.auth.signOut();
     if (!error) {
       setUsername('');
       alert('로그아웃 되었습니다');
-      router.push('/')
+      router.push('/');
     } else {
       alert('로그아웃 실패');
     }
@@ -44,10 +37,10 @@ const Header = () => {
       <ul>
         <li><Link href="/post">후기 작성</Link></li>
       </ul>
-      {username === '' || username === undefined ? (
-        <Link href="/login">로그인</Link>
-      ) : (
+      {username ? (
         <button onClick={logout}>로그아웃</button>
+      ) : (
+        <Link href="/login">로그인</Link>
       )}
     </div>
   );
