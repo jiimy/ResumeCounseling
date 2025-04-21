@@ -10,6 +10,8 @@ export async function GET(request: Request) {
     const supabase = createClient(); // 클라이언트 생성
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
+    alert(error);
+
     if (!error) {
       const forwardedHost = request.headers.get("x-forwarded-host");
       const isLocalEnv = process.env.NODE_ENV === "development";
