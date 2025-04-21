@@ -23,7 +23,7 @@ const Index = () => {
 
   // 카카오 로그인
   const clickKako = () => {
-    router.push(`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=8fd7a1f394d9bbd09fdfdd3827146d73&redirect_uri=
+    router.push(`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=b7994d2e7eb68c893299c087cae666a3&redirect_uri=
 http://localhost:3000/oauth/kakao`);
   }
 
