@@ -13,8 +13,9 @@ const Index = () => {
     const redirectUrl = `${window.location.origin}/auth/callback`;
 
     if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-      router.push(`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/auth/callback`);
       // alert('배포환경입니다.');
+      alert(process.env.NEXT_PUBLIC_VERCEL_URL);
+      // router.push(`${process.env.NEXT_PUBLIC_VERCEL_URL}/auth/callback`);
     }
 
     // const { data, error } = await supabase.auth.signInWithOAuth({
