@@ -85,7 +85,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/api:path*",
+    "/api/:path*",
     "/post/:path*",
   ],
 };
