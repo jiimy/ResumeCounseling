@@ -15,5 +15,5 @@ export const removeCookie = (name:string) => {
 };
 
 export const isLogin = () => {
-  return !!cookies.get("eng-atk");
+  return !!cookies.get("resume-atk");
 };
