@@ -69,7 +69,7 @@ const Review = ({ type = 'kv' }: Props) => {
             ))}
           </Slider>
         </div> :
-        <div>
+        <div className="flex gap-10">
           {isSuccess && data.map((item: any, idx: number) => (
             <ReviewItem key={idx} data={item} type="slide"/>
           ))}
