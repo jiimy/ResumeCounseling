@@ -5,13 +5,34 @@ import { createServerClient } from "@supabase/ssr";
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  });
+  // if (pathname.startsWith("/mypage") && !request.cookies.get("session-id")) {
+  //   return NextResponse.redirect(new URL("/login", request.url));
+  // }
+
+  const res = NextResponse.next();
+
+  // CORS 헤더 추가는 모든 API 요청에 적용
+  if (pathname.startsWith("/api/")) {
+    res.headers.append("Access-Control-Allow-Credentials", "true");
+    res.headers.append("Access-Control-Allow-Origin", "*");
+    res.headers.append(
+      "Access-Control-Allow-Methods",
+      "GET,DELETE,PATCH,POST,PUT"
+    );
+    res.headers.append(
+      "Access-Control-Allow-Headers",
+      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    );
+  }
 
   try {
+    // Create an unmodified response
+    let response = NextResponse.next({
+      request: {
+        headers: request.headers,
+      },
+    });
+
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -35,41 +56,48 @@ export async function middleware(request: NextRequest) {
       }
     );
 
-    // Get the user session
-    const { data: { session } } = await supabase.auth.getSession();
+    // This will refresh session if expired - required for Server Components
+    // https://supabase.com/docs/guides/auth/server-side/nextjs
     const user = await supabase.auth.getUser();
 
-    console.log('Middleware session:', session);
-    console.log('Middleware user:', user);
-
-    // Protected routes - redirect to login if not authenticated
-    if (pathname.startsWith("/post") && !session) {
-      console.log('Redirecting to login - no session found');
+    console.log("request", request.nextUrl.pathname);
+    console.log("user", user);
+    // protected routes
+    if (
+      request.nextUrl.pathname.startsWith("/post") &&
+      user?.data?.user === null
+    ) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
-
-    // CORS headers for API routes
-    if (pathname.startsWith("/api/")) {
-      response.headers.append("Access-Control-Allow-Credentials", "true");
-      response.headers.append("Access-Control-Allow-Origin", "*");
-      response.headers.append(
-        "Access-Control-Allow-Methods",
-        "GET,DELETE,PATCH,POST,PUT"
-      );
-      response.headers.append(
-        "Access-Control-Allow-Headers",
-        "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-      );
+    if (
+      request.nextUrl.pathname.startsWith("/bookmark") &&
+      user?.data?.user === null
+    ) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+    if (
+      request.nextUrl.pathname.startsWith("/upload") &&
+      user?.data?.user === null
+    ) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+    if (
+      request.nextUrl.pathname.startsWith("/support") &&
+      user?.data?.user === null
+    ) {
+      return NextResponse.redirect(new URL("/login", request.url));
     }
 
     return response;
   } catch (e) {
-    console.error('Middleware error:', e);
-    // If there's an error, still protect the routes
-    if (pathname.startsWith("/post")) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-    return response;
+    // If you are here, a Supabase client could not be created!
+    // This is likely because you have not set up environment variables.
+    // Check out http://localhost:3000 for Next Steps.
+    return NextResponse.next({
+      request: {
+        headers: request.headers,
+      },
+    });
   }
 }
 
@@ -77,5 +105,8 @@ export const config = {
   matcher: [
     "/api/:path*",
     "/post/:path*",
+    "/bookmark/:path*",
+    "/upload/:path*",
+    "/support/:path*",
   ],
 };
