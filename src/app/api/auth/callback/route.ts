@@ -7,7 +7,6 @@ export async function GET(request: Request) {
   const next = searchParams.get("next") ?? "/";
 
   if (code) {
-    alert('코드있음');
     const supabase = createClient(); // 클라이언트 생성
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
@@ -20,7 +19,6 @@ export async function GET(request: Request) {
         return NextResponse.redirect(`${origin}${next}`);
       } else {
         // console.log("배포환경");
-        alert("배포환경");
         return NextResponse.redirect(`https://${forwardedHost ?? origin}`);
         // return NextResponse.redirect(`https://engrit-client.vercel.app`);
       }
